@@ -1,3 +1,3 @@
 # SCRIPTS
 
-*Uma variedade de scripts.
+`Uma variedade de scripts.
