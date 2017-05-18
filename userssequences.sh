@@ -6,17 +6,20 @@
 
 # Este é um script que permite ao utilizador do mesmo, criar usuários no Linux em sequência, a partir de um arquivo (.txt) onde conterá com os nomes de usuários a serem criados.
 # Primeiramente, você deve criar um arquivo (.txt) com os nomes de usuários e, transferir o mesmo para o servidor via SFTP, fazer o download com o wget ou, criar com o próprio editor nano no servidor. 
-# Feito o passo anterior você poderá executar o script com o comando: userssequences, após isso o script será executado e você deverá informar o diretório onde está o arquivo (.txt) que conterá com os nomes de usuários, para que o script possa processá-los e, criá-los.
+# Feito o passo anterior você poderá executar o script com o comando: userssequences, após isso o script será executado e você deverá informar o diretório onde está o arquivo (.txt) que contém os nomes de usuários, para que o script possa processá-los e, criá-los.
 # Os usuários que conterá no arquivo (.txt) serão criados com senha e, um número de dias para expirar, que será determinado por você durante a execução do script.
 # Lembre-se: é um script em fase de testes, os testes até agora foram perfeitamente aprovados, sem nenhum tipo bug ou problema apresentado. Você será o único responsável por executar este script. Use por sua conta e risco.
+
+# Modo de uso:
+# 1- wget --no-check-certificate https://raw.githubusercontent.com/AnonymousLinux/SCRIPTS/master/userssequences.sh -O /bin/userssequences
+# 2- chmod +x /bin/userssequences
+# 3- userssequences
 
 clear
 echo -e "\033[01;32mModo de uso:\033[01;33m /DIRETÓRIO/ARQUIVO.txt"
 echo -e "\033[01;32mExemplo:\033[01;33m /root/users.txt"
 echo ""
 echo -ne "\033[01;37mNome do arquivo (.txt) com lista de usuários: "; read FILE
-echo -ne "\033[01;37mDigite uma senha para os usuários: "; read PASSWORD
-echo -ne "\033[01;37mDias para expirar: "; read DAYS
 if [ -z $FILE ]; then
   echo ""
   echo -e "\033[01;37;44mVocê digitou o nome de um arquivo vazio. Tente novamente!\033[0m"
@@ -29,12 +32,14 @@ if [ ! -f "$FILE" ]; then
   echo ""
   exit
 else
+  echo -ne "\033[01;37mDigite uma senha para os usuários: "; read PASSWORD
 if [ -z $PASSWORD ]; then
   echo ""
   echo -e "\033[01;37;44mVocê digitou uma senha vazia. Tente novamente!\033[0m"
   echo ""
   exit
 else
+  echo -ne "\033[01;37mDias para expirar: "; read DAYS
 if [ -z $DAYS ]; then
   echo ""
   echo -e "\033[1;37;44mVocê digitou um número de dias vazio. Tente novamente!\033[0m"
@@ -88,3 +93,4 @@ echo -e "\033[01;32mUsuários criados com sucesso!"
 echo -e "\033[01;32mSenha: $PASSWORD"
 echo -e "\033[01;32mData de validade: $VALIDITY2\033[01;37m"
 exit
+
